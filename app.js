@@ -4,6 +4,28 @@ const port = process.env.PORT || 3001;
 
 app.get("/", (req, res) => res.type('html').send(html));
 
+app.get("/log", (req, res) => {
+  const currentDate = new Date().toISOString();
+  fs.appendFileSync(logFilePath, `${currentDate}\n`);
+
+  const logContent = fs.readFileSync(logFilePath, "utf-8");
+  const formattedLogContent = logContent.split("\n").map(line => `<p>${line}</p>`).join("");
+
+  res.type('html').send(`
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <title>Log</title>
+      </head>
+      <body>
+        <section>
+          ${formattedLogContent}
+        </section>
+      </body>
+    </html>
+  `);
+});
+
 const server = app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 
 server.keepAliveTimeout = 120 * 1000;
@@ -14,17 +36,6 @@ const html = `
 <html>
   <head>
     <title>Hello from Render!</title>
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
-    <script>
-      setTimeout(() => {
-        confetti({
-          particleCount: 100,
-          spread: 70,
-          origin: { y: 0.6 },
-          disableForReducedMotion: true
-        });
-      }, 500);
-    </script>
     <style>
       @import url("https://p.typekit.net/p.css?s=1&k=vnd5zic&ht=tk&f=39475.39476.39477.39478.39479.39480.39481.39482&a=18673890&app=typekit&e=css");
       @font-face {
