@@ -1,13 +1,25 @@
 const express = require("express");
+const fs = require("fs");
 const app = express();
 const port = process.env.PORT || 3001;
+const logFilePath = "log.txt";
 
 app.get("/", (req, res) => res.type('html').send(html));
 
 app.get("/log", (req, res) => {
   const currentDate = new Date().toISOString();
-  fs.appendFileSync(logFilePath, `${currentDate}\n`);
+  const message = req.query.message || "No info";
+  fs.appendFileSync(logFilePath, `${currentDate} - ${message}\n`);
 
+  res.type('json').send(`
+    {
+      "code": "ok"
+    }
+  `);
+});
+
+
+app.get("/list", (req, res) => {
   const logContent = fs.readFileSync(logFilePath, "utf-8");
   const formattedLogContent = logContent.split("\n").map(line => `<p>${line}</p>`).join("");
 
