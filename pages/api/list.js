@@ -1,15 +1,13 @@
-
-
-const LOG_FILE_KEY = 'logs/log.txt'; // Key for the log file in Vercel Blob
+const LOG_FILE_KEY = 'https://vc5jpppgnpbgoack.public.blob.vercel-storage.com/logs/log.txt'; // Key for the log file in Vercel Blob
 
 export default async function handler(req, res) {
   if (req.method === 'GET') {
     // Read and return the log file
     try {
 
-            const existingBlob = await fetch(LOG_FILE_KEY);
+      const existingBlob = await fetch(LOG_FILE_KEY);
 
-      const logContent = existingBlob blob.text(); // Get the log file content
+      const logContent = await existingBlob.text(); // Get the log file content
       return res.status(200).json({ logs: logContent });
     } catch (err) {
       console.error('Error reading log file:', err);
