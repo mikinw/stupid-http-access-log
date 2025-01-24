@@ -7,7 +7,7 @@ export const config = {
 export default function middleware(request: Request) {
     const url = new URL(request.url);
     //console.log(`Visitor from ${request.nextUrl.pathname}`);
-    if (url.pathname.startsWith('log')) {
+    if (url.pathname.startsWith('/log')) {
         console.log(request.url)
         return Response.json(
           { success: true, message: 'OK' },
@@ -17,7 +17,8 @@ export default function middleware(request: Request) {
           },
         );
     }
-    if (url.pathname.startsWith('list')) {
+    if (url.pathname.startsWith('/list')) {
+        return Response.
 
     }
     //return NextResponse.rewrite(request.nextUrl);
