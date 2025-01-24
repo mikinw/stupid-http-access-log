@@ -1,4 +1,4 @@
-import { putBlob, getBlob } from '@vercel/blob';
+
 
 const LOG_FILE_KEY = 'logs/log.txt'; // Key for the log file in Vercel Blob
 
@@ -17,7 +17,7 @@ export default async function handler(req, res) {
     }
   }
 
-  if (req.method === 'POST') {
+/*  if (req.method === 'POST') {
     const { message } = req.body;
     if (!message) {
       return res.status(400).json({ error: 'Message is required' });
@@ -44,9 +44,9 @@ export default async function handler(req, res) {
       console.error('Error appending log:', err);
       return res.status(500).json({ error: 'Failed to update log file' });
     }
-  }
+  }*/
 
   // Method not allowed
-  res.setHeader('Allow', ['GET', 'POST']);
+  res.setHeader('Allow', ['GET']);
   return res.status(405).end(`Method ${req.method} Not Allowed`);
 }
