@@ -1,14 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
-const LOG_FILE_KEY = 'https://vc5jpppgnpbgoack.public.blob.vercel-storage.com/logs/log.txt'; // Key for the log file in Vercel Blob
+//const LOG_FILE_KEY = 'https://vc5jpppgnpbgoack.public.blob.vercel-storage.com/logs/log.txt'; // Key for the log file in Vercel Blob
 
 export const config = {
   matcher: ['/log/:path*', '/list/:path*'],
 };
 
-async function getProduct() {
+/* async function getProduct() {
   const res = await fetch(LOG_FILE_KEY);
   return await existingBlob.text();
-}
+} */
 
 export default function middleware(request: Request, context: NextFetchEvent) {
     const url = new URL(request.url);
