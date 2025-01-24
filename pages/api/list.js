@@ -3,8 +3,27 @@ import { putBlob, getBlob } from '@vercel/blob';
 const LOG_FILE_KEY = 'logs/log.txt'; // Key for the log file in Vercel Blob
 
 export default async function handler(req, res) {
+  if (req.method === 'GET') {
+    // Read and return the log file
+    try {
+      const blob = await getBlob(LOG_FILE_KEY);
+      if (!blob) {
+        return res.status(404).json({ error: 'Log file not found' });
+      }
 
-    const { message } = req.query;
+      const logContent = await blob.text(); // Get the log file content
+      return res.status(200).json({ logs: logContent });
+    } catch (err) {
+      console.error('Error reading log file:', err);
+      return res.status(500).json({ error: 'Failed to read log file' });
+    }
+  }
+
+  if (req.method === 'POST') {
+    const { message } = req.body;
+    if (!message) {
+      return res.status(400).json({ error: 'Message is required' });
+    }
 
     try {
       // Fetch the current log file if it exists
@@ -27,6 +46,7 @@ export default async function handler(req, res) {
       console.error('Error appending log:', err);
       return res.status(500).json({ error: 'Failed to update log file' });
     }
+  }
 
   // Method not allowed
   res.setHeader('Allow', ['GET', 'POST']);
