@@ -14,7 +14,7 @@ export default async function handler(req, res) {
       //currentLog = await existingBlob.text();
 
       // Append the new message to the log content
-      const newLog = `log - ${new Date().toISOString()} - ${message}\n`;
+      const newLog = `logs/log - ${new Date().toISOString()} - ${message}`;
 
       // Save the updated log back to Vercel Blob
       await put(newLog, "_", {
