@@ -1,10 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server';
+const LOG_FILE_KEY = 'https://vc5jpppgnpbgoack.public.blob.vercel-storage.com/logs/log.txt'; // Key for the log file in Vercel Blob
 
 export const config = {
   matcher: ['/log/:path*', '/list/:path*'],
 };
 
-export default function middleware(request: Request) {
+async function getProduct() {
+  const res = await fetch(LOG_FILE_KEY);
+  return await existingBlob.text();
+}
+
+export default function middleware(request: Request, context: NextFetchEvent) {
     const url = new URL(request.url);
     //console.log(`Visitor from ${request.nextUrl.pathname}`);
 /*     if (url.pathname.startsWith('/log')) {
@@ -20,8 +26,8 @@ export default function middleware(request: Request) {
     if (url.pathname.startsWith('/list')) {
         try {
 
-          const existingBlob = await fetch(LOG_FILE_KEY);
-    
+            context.waitUntil(getProduct().then((json) => console.log({ json })));
+
           const logContent = await existingBlob.text(); // Get the log file content
           return res.status(200).end(logContent);
         } catch (err) {

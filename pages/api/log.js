@@ -10,14 +10,14 @@ export default async function handler(req, res) {
       // Fetch the current log file if it exists
       let currentLog = '';
 
-      const existingBlob = await fetch(LOG_FILE_KEY);
-      currentLog = await existingBlob.text();
+      //const existingBlob = await fetch(LOG_FILE_KEY);
+      //currentLog = await existingBlob.text();
 
       // Append the new message to the log content
-      const newLog = `${currentLog}\n${new Date().toISOString()} - ${message}\n`;
+      const newLog = `log - ${new Date().toISOString()} - ${message}\n`;
 
       // Save the updated log back to Vercel Blob
-      await put('logs/log.txt', newLog, {
+      await put(newLog, "_", {
         access: 'public',
         addRandomSuffix: false,
         contentType: 'text/plain',
