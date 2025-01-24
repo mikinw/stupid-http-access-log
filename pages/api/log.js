@@ -14,7 +14,7 @@ export default async function handler(req, res) {
       currentLog = await existingBlob.text();
 
       // Append the new message to the log content
-      const newLog = `${currentLog}${new Date().toISOString()} - ${message}\n`;
+      const newLog = `${currentLog}\n${new Date().toISOString()} - ${message}\n`;
 
       // Save the updated log back to Vercel Blob
       await put('logs/log.txt', newLog, {
@@ -23,7 +23,9 @@ export default async function handler(req, res) {
         contentType: 'text/plain',
       });
 
-      return res.status(200).json({ success: true, message: "Log updated ${new Date().toISOString()}" });
+      const msg = `Log updated ${new Date().toISOString()}``;
+
+      return res.status(200).json({ success: true, message: msg });
     } catch (err) {
       console.error('Error appending log:', err);
       return res.status(500).json({ error: 'Failed to update log file' });

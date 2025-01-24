@@ -8,7 +8,7 @@ export default async function handler(req, res) {
       const existingBlob = await fetch(LOG_FILE_KEY);
 
       const logContent = await existingBlob.text(); // Get the log file content
-      return res.status(200).json({ logs: logContent });
+      return res.status(200).end(logContent);
     } catch (err) {
       console.error('Error reading log file:', err);
       return res.status(500).json({ error: 'Failed to read log file' });
