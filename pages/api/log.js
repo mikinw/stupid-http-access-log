@@ -1,4 +1,4 @@
-import { put, del  } from '@vercel/blob';
+import { put  } from '@vercel/blob';
 
 const LOG_FILE_KEY = 'logs/log.txt'; // Key for the log file in Vercel Blob
 
