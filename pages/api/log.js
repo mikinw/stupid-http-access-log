@@ -23,7 +23,7 @@ export default async function handler(req, res) {
         contentType: 'text/plain',
       });
 
-      return res.status(200).json({ success: true, message: 'Log updated' });
+      return res.status(200).json({ success: true, message: "Log updated ${new Date().toISOString()}" });
     } catch (err) {
       console.error('Error appending log:', err);
       return res.status(500).json({ error: 'Failed to update log file' });
