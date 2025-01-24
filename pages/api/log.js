@@ -1,4 +1,4 @@
-import { putBlob, getBlob } from '@vercel/blob';
+import { put, del  } from '@vercel/blob';
 
 const LOG_FILE_KEY = 'logs/log.txt'; // Key for the log file in Vercel Blob
 
@@ -9,16 +9,18 @@ export default async function handler(req, res) {
     try {
       // Fetch the current log file if it exists
       let currentLog = '';
-      const existingBlob = await getBlob(LOG_FILE_KEY);
       if (existingBlob) {
-        currentLog = await existingBlob.text(); // Get current logs
+        const existingBlob = await fetch(existingBlobs.blobs[0].url);
+        currentLog = await existingBlob.text();
       }
 
       // Append the new message to the log content
       const newLog = `${currentLog}${new Date().toISOString()} - ${message}\n`;
 
       // Save the updated log back to Vercel Blob
-      await putBlob(LOG_FILE_KEY, newLog, {
+      await put(LOG_FILE_KEY, newLog, {
+        access: 'public',
+        addRandomSuffix: false,
         contentType: 'text/plain',
       });
 
