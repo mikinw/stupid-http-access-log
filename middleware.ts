@@ -10,7 +10,7 @@ export const config = {
   return await existingBlob.text();
 } */
 
-export default function middleware(request: Request, context: NextFetchEvent) {
+export default function middleware(request: Request) {
     const url = new URL(request.url);
     //console.log(`Visitor from ${request.nextUrl.pathname}`);
 /*     if (url.pathname.startsWith('/log')) {
