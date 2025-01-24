@@ -1,6 +1,6 @@
 import { put  } from '@vercel/blob';
 
-const LOG_FILE_KEY = 'https://vc5jpppgnpbgoack.public.blob.vercel-storage.com/logs/log.txt'; // Key for the log file in Vercel Blob
+///const LOG_FILE_KEY = 'https://vc5jpppgnpbgoack.public.blob.vercel-storage.com/logs/log.txt'; // Key for the log file in Vercel Blob
 
 export default async function handler(req, res) {
 
@@ -8,7 +8,7 @@ export default async function handler(req, res) {
 
     try {
       // Fetch the current log file if it exists
-      let currentLog = '';
+      //let currentLog = '';
 
       //const existingBlob = await fetch(LOG_FILE_KEY);
       //currentLog = await existingBlob.text();
