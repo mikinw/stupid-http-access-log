@@ -23,7 +23,7 @@ export default async function handler(req, res) {
         contentType: 'text/plain',
       });
 
-      const msg = `Log updated ${new Date().toISOString()}``;
+      const msg = `Log updated ${new Date().toISOString()}`;
 
       return res.status(200).json({ success: true, message: msg });
     } catch (err) {
