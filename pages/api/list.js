@@ -6,12 +6,10 @@ export default async function handler(req, res) {
   if (req.method === 'GET') {
     // Read and return the log file
     try {
-      const blob = await getBlob(LOG_FILE_KEY);
-      if (!blob) {
-        return res.status(404).json({ error: 'Log file not found' });
-      }
 
-      const logContent = await blob.text(); // Get the log file content
+            const existingBlob = await fetch(LOG_FILE_KEY);
+
+      const logContent = existingBlob blob.text(); // Get the log file content
       return res.status(200).json({ logs: logContent });
     } catch (err) {
       console.error('Error reading log file:', err);
