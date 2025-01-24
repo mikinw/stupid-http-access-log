@@ -4,9 +4,11 @@ export const config = {
   matcher: ['/log/:path*', '/list/:path*'],
 };
 
-export default function middleware(request: NextRequest) {
-    console.log(`Visitor from ${request.nextUrl.pathname}`);
-    if (request.nextUrl.pathname.startsWith('log')) {
+export default function middleware(request: Request) {
+    const url = new URL(request.url);
+    //console.log(`Visitor from ${request.nextUrl.pathname}`);
+    if (url.pathname.startsWith('log')) {
+        console.log(request.url)
         return Response.json(
           { success: true, message: 'OK' },
           {
@@ -15,7 +17,7 @@ export default function middleware(request: NextRequest) {
           },
         );
     }
-    if (request.nextUrl.pathname.startsWith('list')) {
+    if (url.pathname.startsWith('list')) {
 
     }
     //return NextResponse.rewrite(request.nextUrl);
